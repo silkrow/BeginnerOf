@@ -30,6 +30,25 @@ fn main() {
 
 	let len = cal_length(&s);
 	println!("The length of '{}' is {}.", s, len);
+	
+	let a = 1;
+
+	println!("This is a reference example for int! {}", ref_int(&a));
+
+	let mut s = String::from("Hey");
+
+	change(&mut s);
+
+
+	let mut s = String::from("Hey");
+	let r1 = &mut s;
+
+	println!("{}, {}", r1, r1);
+
+	let len = cal_length(r1);
+	println!("{}", len);
+
+	println!("still exists {}", r1);
 }
 
 fn takes_ownership(some_string: String) {
@@ -48,4 +67,12 @@ fn calculate_length(s: String) -> (String, usize){
 
 fn cal_length(s: &String) -> usize {
 	s.len()
+}
+
+fn ref_int(n: &u32) -> u32 {
+	*n
+}
+
+fn change(s: &mut String) {
+	s.push_str(", hello!!");
 }
