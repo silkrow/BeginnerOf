@@ -52,6 +52,15 @@ fn main() {
 	
 	let s = String::from("Hello happy teachers' day");
 	println!("{}", first_word(&s));
+
+	let s = String::from("hello world");
+
+	let _hello = &s[0..5];
+	let _world = &s[6..11];
+
+	println!("{} {}", r1, s); // This is weird, s has already been redefined, yet it's reference r1 still holds the string 'Hey' as the original s.
+
+	println!("{}", first_word2(&s));
 }
 
 fn takes_ownership(some_string: String) {
@@ -81,7 +90,7 @@ fn change(s: &mut String) {
 }
 
 fn first_word(s: &String) -> usize {
-	let bytes = s.as_bytes();
+	let bytes = s.as_bytes(); // Convert the string to an array of bytes.
 
 	for (i, &item) in bytes.iter().enumerate() {
 		if item == b' ' {
@@ -89,4 +98,16 @@ fn first_word(s: &String) -> usize {
 		}
 	}
 	s.len()
+}
+
+fn first_word2(s: &String) -> &str {
+	let bytes = s.as_bytes();
+
+	for (i, &item) in bytes.iter().enumerate() {
+		if item == b' ' {
+			return &s[0..i];
+		}
+	}
+
+	&s[..]
 }
