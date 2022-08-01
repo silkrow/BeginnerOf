@@ -49,6 +49,9 @@ fn main() {
 	println!("{}", len);
 
 	println!("still exists {}", r1);
+	
+	let s = String::from("Hello happy teachers' day");
+	println!("{}", first_word(&s));
 }
 
 fn takes_ownership(some_string: String) {
@@ -75,4 +78,15 @@ fn ref_int(n: &u32) -> u32 {
 
 fn change(s: &mut String) {
 	s.push_str(", hello!!");
+}
+
+fn first_word(s: &String) -> usize {
+	let bytes = s.as_bytes();
+
+	for (i, &item) in bytes.iter().enumerate() {
+		if item == b' ' {
+			return i;
+		}
+	}
+	s.len()
 }
