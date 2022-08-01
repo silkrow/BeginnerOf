@@ -60,7 +60,17 @@ fn main() {
 
 	println!("{} {}", r1, s); // This is weird, s has already been redefined, yet it's reference r1 still holds the string 'Hey' as the original s.
 
-	println!("{}", first_word2(&s));
+	println!("The first word of string '{}' is '{}'", s, first_word2(&s));
+
+	println!("{}", &s[..]);
+	
+
+	// Let's check this weird behaviour once again.
+	let sss = String::from("Morning");
+	let rrr = &sss;
+	println!("{} {}", sss, rrr);
+	let sss = String::from("Evening");
+	println!("{} {}", sss, rrr);
 }
 
 fn takes_ownership(some_string: String) {
@@ -100,7 +110,7 @@ fn first_word(s: &String) -> usize {
 	s.len()
 }
 
-fn first_word2(s: &String) -> &str {
+fn first_word2(s: &str) -> &str {
 	let bytes = s.as_bytes();
 
 	for (i, &item) in bytes.iter().enumerate() {
