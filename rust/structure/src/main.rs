@@ -29,7 +29,7 @@ fn main() {
 
 	println!("{}", black.1);
 	let t:(u32, u32, u32) = (1, 2, 3);
-	println!("{:?}", t);
+	println!("{:?}", t); // But can't do this to tuple structure
 }
 
 
