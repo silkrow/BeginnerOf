@@ -26,4 +26,24 @@ fn main() {
 
 	let some_number = Some(5);
 	let absent_number: Option<i32> = None;
+
+	let a = Coin::Penny;
+	println!("{}", in_cents(a));
 }
+
+enum Coin {
+	Penny, 
+	Nickel, 
+	Dime, 
+	Quarter,
+}
+
+fn in_cents(coin: Coin) -> u8 {
+	match coin {
+		Coin::Penny => 1,
+		Coin::Nickel => 5,
+		Coin::Dime => 10,
+		Coin::Quarter => 25,
+	}
+}
+
