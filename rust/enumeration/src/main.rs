@@ -32,6 +32,52 @@ fn main() {
 
 	let b = Coin::Quarter(US::Alaska);
 	in_cents(b);
+
+	let five = Some(5);
+	let six = plus_one(five);
+	let none = plus_one(None);
+
+	let some_u8 = 0u8;
+	match some_u8 {
+		1 => println!("one"),
+		3 => println!("three"),
+		5 => println!("five"),
+		7 => println!("seven"),
+		_ => (),  // () is the unit value.
+	}
+
+	// Compare the following two implementations to have a taste of "if let" technique.
+	let some_8 = Some(0u8);
+	match some_8 {
+		Some(3) => println!("three"),
+		_ => (),
+	}
+
+	if let Some(3) = some_8 {
+		println!("three");
+	}
+
+	// Another pair of example.
+	let coin = Coin::Quarter(US::Alaska);
+	let mut count = 0;
+	match coin {
+		Coin::Quarter(state) => println!("State quarter from {:?}!", state),
+		_ => count += 1,
+	}
+
+	let coin1 = Coin::Quarter(US::Alaska);
+	if let Coin::Quarter(state) = coin1 {
+		println!("State quarter from {:?}!", state);
+	} else {
+		count += 1;
+	}
+}
+
+fn plus_one(x: Option<i32>) -> Option<i32> {
+	match x {
+		None => None,
+		Some(i) => Some(i+1),
+	}
 }
 
 #[derive(Debug)]
