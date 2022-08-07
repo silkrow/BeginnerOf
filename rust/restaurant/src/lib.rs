@@ -1,20 +1,6 @@
-mod front_of_house { // There's no need to add 'pub' here for eat_at_restaurant below to access the front_of_house module because they're siblings!
-  	pub mod hosting {
-		pub fn add_to_waitlist() {}
+mod front_of_house;
 
-		fn seat_at_table() {}
-	}
-
-	mod serving {
-		fn take_order() {}
-
-		fn serve_order() {}
-
-		fn take_payment() {}
-	}
-}
-
-use crate::front_of_house::hosting; // Added the module into crate root with a absolute path
+pub use crate::front_of_house::hosting; // Added the module into crate root with a absolute path
 
 // use self::front_of_house::hosting; // Added the module into crate root with a relative path, note the 'self' keyword at the beginning
 
