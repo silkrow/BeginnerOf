@@ -14,12 +14,19 @@ mod front_of_house { // There's no need to add 'pub' here for eat_at_restaurant 
 	}
 }
 
+use crate::front_of_house::hosting; // Added the module into crate root with a absolute path
+
+// use self::front_of_house::hosting; // Added the module into crate root with a relative path, note the 'self' keyword at the beginning
+
 pub fn eat_at_restaurant() {
 	// Absolute path
 	crate::front_of_house::hosting::add_to_waitlist();
 
 	// Relative path
 	front_of_house::hosting::add_to_waitlist();
+
+	// With the help of 'use' keyword
+	hosting::add_to_waitlist();
 
 	// Order a breakfast in the summer with Rye toast
 	let mut meal = back_of_house::Breakfast::summer("Rye");
