@@ -28,3 +28,5 @@ Cargo passes the crate root files to rustc to build the library or binary.
 A package can have multiple *binary crates* by placing files in the src/bin directory: each file will be a separate binary crate.
 
 *Modules* let us organize code within a crate into groups for readability and easy reuse. Modules control the privacy of items.
+
+*use* keyword allows us to bring a path into a scope once and then call the items in that path as if they're local items.
