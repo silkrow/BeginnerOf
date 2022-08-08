@@ -67,6 +67,7 @@ fn main() {
 	let _hello = String::from("Olá");
 	let _hello = String::from("Здравствуйте"); 
 	let _hello = String::from("Hola");
+	let _hello = String::from("Hallo");
 
 	let s1 = String::from("hello ");
 	let s2 = String::from("world!");
@@ -77,4 +78,11 @@ fn main() {
 
 	let mut s4 = String::from("foo");
 	s4.push_str("bar");
+
+	// add method in String has the following signature
+	// fn add(self, s: &str) -> String {
+	//	}
+	// That's why s3 = s1 + &s2; is the common way to use +
+
+	
 }
