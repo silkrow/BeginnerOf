@@ -39,9 +39,32 @@ fn main() {
 		println!("{}", i);
 	}
 
-	let _row = vec![
+	let row = vec![
 		SpreadsheetCell::Int(3),
 		SpreadsheetCell::Text(String::from("blue")),
 		SpreadsheetCell::Float(10.12),
 	];
+
+	for i in &row {
+		match i{
+			SpreadsheetCell::Int(t) => println!("{}", t),
+			SpreadsheetCell::Text(s) => println!("{}", s),
+			_ => (),
+		}
+	}
+
+	let mut s = String::new();
+	let data = "initial contents";
+
+	let _sdata = data.to_string();
+
+	let hello = String::from("Dobrý den");
+	let hello = String::from("Hello");
+	let hello = String::from("नमस्ते");
+	let hello = String::from("こんにちは"); 
+	let hello = String::from("안녕하세요"); 
+	let hello = String::from("你好");
+	let hello = String::from("Olá");
+	let hello = String::from("Здравствуйте"); 
+	let hello = String::from("Hola");
 }
