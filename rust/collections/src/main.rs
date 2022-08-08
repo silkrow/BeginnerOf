@@ -53,18 +53,28 @@ fn main() {
 		}
 	}
 
-	let mut s = String::new();
+	let mut _s = String::new();
 	let data = "initial contents";
 
 	let _sdata = data.to_string();
 
-	let hello = String::from("Dobrý den");
-	let hello = String::from("Hello");
-	let hello = String::from("नमस्ते");
-	let hello = String::from("こんにちは"); 
-	let hello = String::from("안녕하세요"); 
-	let hello = String::from("你好");
-	let hello = String::from("Olá");
-	let hello = String::from("Здравствуйте"); 
-	let hello = String::from("Hola");
+	let _hello = String::from("Dobrý den");
+	let _hello = String::from("Hello");
+	let _hello = String::from("नमस्ते");
+	let _hello = String::from("こんにちは"); 
+	let _hello = String::from("안녕하세요"); 
+	let _hello = String::from("你好");
+	let _hello = String::from("Olá");
+	let _hello = String::from("Здравствуйте"); 
+	let _hello = String::from("Hola");
+
+	let s1 = String::from("hello ");
+	let s2 = String::from("world!");
+	let s3 = s1 + &s2; // s1 is moved
+
+	println!("{}", s2);
+	println!("{}", s3);
+
+	let mut s4 = String::from("foo");
+	s4.push_str("bar");
 }
