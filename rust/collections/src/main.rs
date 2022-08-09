@@ -84,5 +84,23 @@ fn main() {
 	//	}
 	// That's why s3 = s1 + &s2; is the common way to use +
 
-	
+	let s1 = String::from("tic");	
+	let s2 = String::from("tac");	
+	let s3 = String::from("toe");	
+
+	println!("{}", s1 + "-" + &s2 + "-" + &s3);
+	println!("{}", format!("{}-{}", s2, s3));
+
+	let len = String::from("नमसत्").len();
+	println!("{} has length {}!", "नमसत्", len); // 15
+
+	println!("In chars:");
+	for c in "नमसत्".chars() {
+		println!("{}", c);
+	}
+
+	println!("In bytes:");
+	for b in "नमसत्".bytes() {
+		println!("{}", b);
+	}
 }
