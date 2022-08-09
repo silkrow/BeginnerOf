@@ -114,4 +114,33 @@ fn main() {
 	let initial_scores = vec![10, 50];
 
 	let _scores: HashMap<_, _> = teams.iter().zip(initial_scores.iter()).collect();
+
+	let team_name = String::from("Blue");
+	let score = scores.get(&team_name);
+
+	match score {
+		Some(&sco) => println!("{}", sco),
+		None => (),
+	}
+
+	for (key, value) in &scores {
+		println!("{}, {}", key, value);
+	}
+
+	scores.entry(String::from("Yellow")).or_insert(50);
+	scores.entry(String::from("Blue")).or_insert(50);
+	scores.entry(String::from("Green")).or_insert(50);
+
+	println!("{:?}", scores);
+
+	let text = "hello world wonderful world";
+
+	let mut map = HashMap::new();
+
+	for word in text.split_whitespace() {
+		let count = map.entry(word).or_insert(0);
+		*count += 1; // Recall that or_insert() returns a mutable reference
+	}
+
+	println!("{:?}", map);
 }
