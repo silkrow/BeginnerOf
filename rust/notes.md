@@ -30,3 +30,7 @@ A package can have multiple *binary crates* by placing files in the src/bin dire
 *Modules* let us organize code within a crate into groups for readability and easy reuse. Modules control the privacy of items.
 
 *use* keyword allows us to bring a path into a scope once and then call the items in that path as if they're local items.
+
+# Chapter 9
+
+When the *panic!* macro executes, your program will print a failure message, unwind and clean up the stack, and then quit.
