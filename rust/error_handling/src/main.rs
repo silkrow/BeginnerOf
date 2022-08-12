@@ -2,6 +2,7 @@ use std::fs::File;
 use std::io::ErrorKind;
 use std::io;
 use std::io::Read;
+use std::fs;
 
 fn main() {
 // Complicated way.
@@ -46,8 +47,20 @@ fn read_username_from_file() -> Result<String, io::Error> { // Return the userna
 }
 
 fn easy_read_username_from_file() -> Result<String, io::Error> {
-	let mut f = File::open("hello.txt")?; // The error will be automatically returned here if encountered
+	let mut f = File::open("hello.txt")?; // The error will be automatically returned here if encountered thanks to the ? operator
 	let mut s = String::new();
 	f.read_to_string(&mut s)?;
 	Ok(s)
+}
+
+fn easier_read_username_from_file() -> Result<String, io::Error> {
+	let mut s = String::new();
+
+	File::open("hello.txt")?.read_to_string(&mut s)?;
+
+	Ok(s)
+}
+
+fn even_easier_read_username_from_file() -> Result<String, io::Error> {
+	fs::read_to_string("hello.txt")
 }

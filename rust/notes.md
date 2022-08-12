@@ -33,4 +33,28 @@ A package can have multiple *binary crates* by placing files in the src/bin dire
 
 # Chapter 9
 
+Rust doesn't have exceptions. Instead, it has the type "Result" for *recoverable* errors and the panic! macro that stops execution when the program encounters an *unrecoverable* error.
+
 When the *panic!* macro executes, your program will print a failure message, unwind and clean up the stack, and then quit.
+
+The "Result" type has many helper methods defined on it to do various tasks. e.g. unwrap.
+
+If the Result is the Err variant, unwrap will call the panic! macro.
+
+	use std::fs::File;
+
+	fn main() {
+		let f = File::open("hello.txt").unwrap();
+	}
+
+Another example is expect, which let us also choose the panic! error message.
+
+	use std::fs::File;
+
+	fn main() {
+		let f = File::open("hello.txt").expect("Failed to open hello.txt");
+	}
+
+The ? operator passes the error values through the from function, which is implemented in the From trait in the standard library. 
+
+*From* trait converts errors from one type into another. 
