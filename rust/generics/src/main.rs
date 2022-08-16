@@ -20,4 +20,5 @@ fn main() {
 
 	let result = largest(&char_list);
 	println!("The largest char is {}", result);
+
 }
