@@ -62,3 +62,5 @@ The ? operator passes the error values through the from function, which is imple
 # Chapter 10
 
 Rust uses *monomorphization*, which turns generic code into specific code by filling in the concrete types that are used when *compiled*.
+
+A trait tells the Rust compiler about *functionality a particular type has and can share with other types*. 
