@@ -59,3 +59,6 @@ The ? operator passes the error values through the from function, which is imple
 
 *From* trait converts errors from one type into another. 
 
+# Chapter 10
+
+Rust uses *monomorphization*, which turns generic code into specific code by filling in the concrete types that are used when *compiled*.
