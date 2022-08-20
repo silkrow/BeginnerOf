@@ -1,0 +1,1 @@
+/Users/yuerkai/Desktop/fromgit/BeginnerOf/rust/trait_practice/target/debug/trait_practice: /Users/yuerkai/Desktop/fromgit/BeginnerOf/rust/trait_practice/src/lib.rs /Users/yuerkai/Desktop/fromgit/BeginnerOf/rust/trait_practice/src/main.rs
