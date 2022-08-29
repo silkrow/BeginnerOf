@@ -10,6 +10,10 @@ To list macOS services:
 
 	brew services list 
 
+To delete a database, first switch into is, then run:
+
+	db.dropDatabase()
+
 To connect and use MongoDB:
 
 	mongosh

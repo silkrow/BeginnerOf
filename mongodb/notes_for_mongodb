@@ -1,0 +1,5 @@
+MongoDB database consists of a set of collections; each collection holds a set of documents; each document is a set of key-value pairs.
+
+The power of MongoDB lies in the distributed, parallel nature of its query processing.
+
+
