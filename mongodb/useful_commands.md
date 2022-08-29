@@ -6,4 +6,10 @@ To stop a mongod running running as a macOS service:
 
 	brew services stop mongodb-community@6.0
 
+To list macOS services:
 
+	brew services list 
+
+To connect and use MongoDB:
+
+	mongosh
