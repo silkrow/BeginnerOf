@@ -33,7 +33,6 @@ feel free to check this weird result with community 6.0.1 version, and mongosh 1
 "Cursor methods" are methods like ```.count, .pretty, .sort```. Check [cursor methods](https://www.mongodb.com/docs/manual/reference/method/js-cursor/) for details.
 
 Here're some commonly used cursor methods:
-	```
 	cursor.forEach() # Applies a JavaScript function for every document in a cursor.
 	cursor.limit() # Constrains the size of a cursor's result set.
 	cursor.map() # Applies a function to each document in a cursor and collects the return values in an array.
@@ -45,4 +44,3 @@ Here're some commonly used cursor methods:
 	cursor.size() # Returns a count of the documents in the cursor after applying skip() and limit() methods.
 	cursor.sort() # Returns results ordered according to a sort specification.
 	cursor.toArray() # Returns an array that contains all documents returned by the cursor.
-	```
