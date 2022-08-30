@@ -45,3 +45,30 @@ Here're some commonly used cursor methods:
 	cursor.size() # Returns a count of the documents in the cursor after applying skip() and limit() methods.
 	cursor.sort() # Returns results ordered according to a sort specification.
 	cursor.toArray() # Returns an array that contains all documents returned by the cursor.
+
+An example of aggregation:
+	
+	db.Movies.aggregate([
+    {$unwind: "$actors"},
+    {
+        $match:
+        {
+            "ratings": {$gte: 8}
+        }
+
+    },
+    {
+        $group:
+        {
+            _id: "$director",
+            unique_actor: {$addToSet: "$actors"}
+        }
+    },
+    {
+        $project:
+        {
+            director: "$_id",
+            _id: 0,
+            count_unique_actors: {$size: "$unique_actor"}
+        }
+    }])
