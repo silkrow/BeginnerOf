@@ -1,0 +1,105 @@
+* EFLAGS: 32 bit register
+SF - sign flag: negative result in 2's complement
+ZF - zero flag
+CF - carry flag
+OF - overflow flag: 2's complement overflow
+PF - parity flag(even number of 1's)
+
+* Instructions that set flags...
+	- some of them. 
+	- use CMP or TEST to set flags
+		example
+			CMPL	%EAX, %EBX # flags <- (EBX - EAX)
+			TESTL	%EAX, %EBX # flags <- (EBX AND EAX)
+
+* control flow
+	example 1 
+		010 - 000 = 010, the flags (CF, OF, SF) = (0, 0, 0)
+	example 2
+		010 - 110 = 100, the flags (CF, OF, SF) = (1, 1, 1)
+	example 3
+		010 - 111 = 011, the flags (CF, OF, SF) = (1, 0, 0)
+	example 4
+		110 - 000 = 110, the flags (CF, OF, SF) = (0, 0, 1)
+	example 5
+		110 - 011 = 011, the flags (CF, OF, SF) = (0, 1, 0)
+	example 6
+		110 - 111 = 111, the flags (CF, OF, SF) = (1, 0, 1)
+
+	view the equations above as EDX - ESI, in the instruction
+			CMPL	%EDX, %ESI # flags <- (EDX - ESI)
+	Draw the result of flags in a kmap, with 0/1 corresponding to EDX>ESI/EDX<ESI
+		by the kmap, the result is SF xor OF
+* branch mnemonics
+	- unsigned cmp: "above" and "below"
+	- signed cmp: "less" and "greater"
+	examples: 
+		jne, jb, jbe, jg ... (jne applies to both signed and unsigned)
+	example of branch:
+		CMPL	%ESI, %EDX
+		JL	EDX_SMALL	# if EDX<ESI in signed case, jump to the label
+
+	- some others:
+		jo - jump on overflow
+		jp - jump on parity
+		js - jump on sign
+		jmp - unconditional
+
+* subroutine call and return 
+	3 example:
+		CALL printf	# printf is a label, (push EIP, for the return address on the stack), then EIP <- printf
+		CALL *%EAX	# (push EIP), EIP <- EAX
+		CALL *(%EAX)	# (push EIP), EIP <- M[EAX]
+				\____ Displacement format
+
+* stack operations
+	push and pop are supported directly. 
+	example:
+		PUSHL	%EAX	# M[ESP - 4] <- EAX, ESP <- ESP - 4
+		POPL	%EBP	# EBP <- M[ESP], ESP <- ESP + 4
+		PUSHFL			# M[ESP - 4] <- EFLAGS, ESP <- ESP - 4
+		POPFL			# EFLAGS <- M[ESP], ESP <- ESP + 4
+
+* Data Size Conversion
+	- idea: extend 8-bit or 16-bit values to 16-bit or 32-bit values.
+	general form to do this: 
+			MOV___
+			   || \___"to" type (L or W)
+			   ||_____"from" type (W or B)
+			   \_______signed(S) or zero(Z)
+
+		example:
+			MOVSBL	%AH, %ECX	# ECX <- sign extended to 32-bit (AH)
+			MOVZWL	4%(EBP), %EAX	# EAX <- zero extended to 32-bit (M[EBP+4])
+
+* Assembler Conventions:
+	label:	# requires a colon, and is case-sensitive
+			# single line
+	C-style:
+	/*
+	*/
+	.string	"hello world", "hi"	# NUL terminated(two strings here)
+	.word	# 16-bit values
+	.byte	# 100, 0x30, ...
+	.long
+	.quad
+	.single
+	.double
+
+	.S file: go through C's preprocessor
+
+	code example:
+		1. given: EBX pointing to an array of structures, with ECX elements in  array.
+		2. the structure: char* name + long age.
+		3. find: min and max age in array.
+
+		use these registers:
+			ESI - index into array
+			EAX - current age
+			EDX - min age seen
+			EDI - max age seen
+
+		CODE HERE:
+		# setup registers first
+		
+		# walk over the array
