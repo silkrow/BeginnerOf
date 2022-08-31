@@ -1,0 +1,20 @@
+* Data Model
+A data model is a notation for describing data or information. The description generally consists of three parts:
+1. Structure of the data:
+	data structures used to implement data in the computer(physical data model)
+2. Operations on the data:
+	limited set of queries and modifications
+3. Constraints on the data:
+	way to describe limitations on what the data can be. These constraints often come from the real-world application requirements.
+
+* relation = table
+  schema = the definition(like the category names on the first row)
+  tuple/records = rows in the table
+  
+  since schema is fixed and records can be modified/added, we refer to schema as the intension of the table, and records as the extension of the table, also called extent.
+  cardinality = number of rows in the table
+
+ * foreign key
+ 	An idea used when connecting two tables. 
+	There can be a key in both table1 and table2, saying table1.key is a foreign key that references table2.key. If the DBMS enforces this constraint, we have referential integrity.
+	foreign key must always reference a primary key.
