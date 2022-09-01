@@ -106,3 +106,104 @@ PF - parity flag(even number of 1's)
 		a+2:	0B
 		a+3:	0A
 	The key is that little endian starts the storage with the least significant byte.
+
+* initialize registers before usage:
+		example:
+			xorl	%EAX, %EAX
+
+* x86 grows its stack DOWN(from higher address to lower address):
+	that's basically why "esp - 4" is frequently seen when making space in the stack.
+
+* An example:
+		ANDL	$0, %ESI
+		MOVL	$0x7FFFFFFF, %EDX	# init
+		MOVL	$-1, %EDI
+
+		CMPL	%ESI, %ECX			# ECX <= ESI
+		JLE		DONE
+
+		# read age into EAX
+		MOVL	4(%EBX, %ESI, 8), %EAX
+		CMPL	%EAX, %EDI			# EDI >= EAX
+		JGE		NOT_MAX
+		MOVL	%EAX, %EDI
+
+NOT_MAX:
+		CMPL	%EAX, %EDX			# EDX <= EAX
+		JLE		NOT_MIN
+		MOVL	%EAX, %EDX
+
+NOT_MIN:
+		ADDL	$1, %ESI
+		JMP		LOOP
+		
+* calling convention:
+	calling convention specifies interface to a subroutine.
+	- how does information go in?
+	- how does information come out?
+	- who owns registers?
+	parameters for subroutines.
+	- pushed onto stack.
+	- from right to left in C.
+	subroutine return values.
+	- EAX for up ro 32 bits.
+	- EDX: EAX for up to 64 bits.
+	register ownership.
+	- return values can be clobbbered.
+	- caller-saved: subroutine free to clobber.
+		ECX, EFLAGS
+	- callee-saved: EBX, ESI, EDI
+		also stack structure: EBP, ESP.
+	call sequence
+	- 0. save caller-saved registers
+	- 1. push arges onto stack
+	- 2. make the call
+	- 3. pop args off stack
+	- 4. restore caller-saved registers
+	callee sequence
+	- 0. save old base pointer, get a new one
+	- 1. save callee-saved registers
+	- 2. make space for local vars
+	- 3. do the function body
+	- 4. tear down stack frame
+	- 5. restore callee-saved regs
+	- 6. load old base pointer
+	- 7. return
+
+* An example of C code to assembly:
+		C:
+			void find_min_max(person* group, long n_people, min_max* mm){
+				
+			}
+
+		x86:
+			# create stack frame
+			PUSHL	%EBP
+			MOVL	%ESP, % EBP
+			PUSHL	%EBX
+			PUSHL	%ESI
+			PUSHL	%EDI
+			
+			# link to input interface
+			MOVL	8(%EBP), %EBX		# group	
+			MOVL	12(%EBP), %ECX		# n_people
+
+			MOVL	16(%EBP), %EBX		# mm
+			MOVL	%EDX, 0(%EBX)		# mm -> min
+			MOVL	%EDX, 4(%EBX)		# mm -> max
+			
+			POPL	%EDI
+			POPL	%ESI
+			POPL	%EBX
+
+			LEAVE
+			RET
+
+* multiply and divide
+		MULL	%EBX		# unsigned
+							# EDX: EAX <- EAX*EDX
+		IMULL	%EBX		# signed
+		IMULL	%ECX, %EBX	# signed EBX <- EBX*ECX
+-------------------------------- figure this out!
+
+
