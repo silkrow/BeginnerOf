@@ -1,0 +1,4 @@
+* Various Unix-like systems on the market:
+	- All commerciail variants were derived from either SVR4 or 4.4BSD.
+	- All tend to agree on some common standards like IEEE's Portable Operating Systems based on Unix(POSIX) and X/Open's Common Applications Environment(CAE).
+

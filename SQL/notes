@@ -18,3 +18,51 @@ A data model is a notation for describing data or information. The description g
  	An idea used when connecting two tables. 
 	There can be a key in both table1 and table2, saying table1.key is a foreign key that references table2.key. If the DBMS enforces this constraint, we have referential integrity.
 	foreign key must always reference a primary key.
+
+* SQL - Structured Query Language
+	separated into 
+		DDL - data definition language
+		DML - data manipulation language, based on relational calculus
+
+		DDL: CREATE, ALTER, DROP
+		DML: SELECT, INSERT, UPDATE, DELETE
+
+* the principal form of a single-relation query:
+	SELECT	desired attributes
+	FROM	one table(relation)
+	WHERE	condition about tuples of the table
+	example:
+		SELECT Number AS Acc_Num, Owner
+		FROM Accounts
+		WHERE Type = "savings";
+
+	# selects the rows with Type = "savings" in table "Accounts", and display the Number and Owner columns, but with Number renamed as Acc_Num
+
+* Store the results of a query(with INTO keyword):
+	example:
+		SELECT Owner INTO temp3
+		FROM Account
+		WHERE Types = "savings"
+
+* use LIKE keyword:
+	example:
+		SELECT name
+		FROM Customers
+		WHERE phone LIKE '%555-____';
+
+* select everything and ORDER BY:
+	example:
+		SELECT *
+		FROM Account
+		WHERE name LIKE 'J%'
+		ORDER BY Balance		# ascending by default, add DESC if you want
+
+* Multi-Relation Query:
+	example:
+		SELECT	A.Owner, A.Balance
+		FROM	Account A, Deposit D
+		WHERE	D.AcctNo = A.Number and A.Balance > 1000;
+
+* Three-Valued logic:
+	TRUE = 1, FALSE = 0, UNKNOWN = 1/2
+	AND = MIN, OR = MAX, NOT(x) = 1 - x
