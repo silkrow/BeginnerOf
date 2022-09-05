@@ -2,3 +2,25 @@
 	- All commerciail variants were derived from either SVR4 or 4.4BSD.
 	- All tend to agree on some common standards like IEEE's Portable Operating Systems based on Unix(POSIX) and X/Open's Common Applications Environment(CAE).
 
+* Linux vs. Unix kernels:
+	- Monolithic kernel: 
+		Linux + most commercial Unix variants.
+		However Mac OS X and GNU Hurd are microkernel.
+	- Compiled and statically linked traditional Unix kernels:
+		Most modern kernels can DYNAMICALLY load and unload some portions of the kernel code(typically, device drivers). 
+		Linux's support for modules: 
+			allows to automatically load and unload modules on demand. 
+	- Kernel threading:
+		Linux uses kernel threads in a very limited way to execute a few functions periodically. 
+	- Multithreaded application support:
+		- Most modern operating systems have some kind of support for multithreaded applications.
+		- Multithreaded user applications: 
+			"user programs that are designed in terms of many relatively independent execution flows that share a large portion of the application data structures. Be composed of many lightweight processes(LWP)"
+			- LWP:
+				"processes that can operate on a common address space, common physical memory pages, common opened files..." 
+				- Other commercial Unix variants of LWP are based on kernel threads.
+				- Linux regards LWP as the basic execution context and handles them via the nonstandard clone() system call. 
+	- Preemptive kernel:
+		Linux has Preemptible Kernel option starting from 2.6
+	- Multiprocessor support:
+		Linux 2.6 supports symmetric mutiprocessing(SMP) for different memory models.
