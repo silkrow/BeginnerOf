@@ -1,0 +1,9 @@
+* Add -g flag when compiling with gcc.
+
+* lay next
+	---
+	After running this command, hit enter several times(repeating the command) to switch between display layouts.
+
+* Difference between 'print' and 'display':
+	- 'display' enables automatic displaying of certain expressions each time gdb stops at a breakpoint or after a step.
+	- 'print' prints the content of variable/memory location/register.
