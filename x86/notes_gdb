@@ -7,3 +7,11 @@
 * Difference between 'print' and 'display':
 	- 'display' enables automatic displaying of certain expressions each time gdb stops at a breakpoint or after a step.
 	- 'print' prints the content of variable/memory location/register.
+
+* watch <where>
+	---
+	Sets a new watchpoint. It can be set on a variable, then each time it changes will be caught. 
+
+* x/[format] [address expression]
+	---
+	Displays the memory contents at a given address using the specified format.

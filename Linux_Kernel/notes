@@ -21,6 +21,18 @@
 				- Other commercial Unix variants of LWP are based on kernel threads.
 				- Linux regards LWP as the basic execution context and handles them via the nonstandard clone() system call. 
 	- Preemptive kernel:
+		"When compiled with the Preemptible Kernel option, Linux 2.6 can arbitrarily interleave execution flows while they are in privileged mode."
 		Linux has Preemptible Kernel option starting from 2.6
 	- Multiprocessor support:
 		Linux 2.6 supports symmetric mutiprocessing(SMP) for different memory models.
+
+* Multiuser Systems:
+	"A computer that is able to concurrently + independently execute several applications belonging to two or more users."
+	- Applications can be active AT THE SAME TIME and contend for the various resources such as CPU, memory, hard disks...
+	- Each application can perform its task with no concern for what others are doing.
+	- Users and Groups: 
+		- All users are identified by a unique number called User ID or UID.
+		- Each user is a member of one or more user groups, which are identified by a unique number called a user group ID. Each file is associated with exactly one group. 
+		- root/superuser:
+			"Any Unix-like" OS has a special user called root or superuser. The root user can access every file on the system and can manipulate every running user program. 
+
