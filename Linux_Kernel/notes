@@ -68,4 +68,46 @@
 		- a thread group leader(first lightweight process in the group) has its PID = tgid 
 		- tgid: a field in PD, returned when getpid() is called, thus make sure all threads be led are seemed to share a single PID which is the leader's.
 	- Memory Storage:
-		- PD's are stored in dynamic memory rather than in the memory area permanently assigned to the kernel.
+		- PD's are stored in dynamic memory rather than in the memory area permanently assigned to the kernel(instead use the thread_info below to link to PD from the memory area for each process).
+		- Each process ____thread_info data structure 
+					\______Kernel Mode process stack
+			The two data structures above are stored together, 8192 bytes in total. 
+			thread_info links to PD which is at somewhere else(but still it should be kernel space, not necessarily permanent).
+			visualize the 2 page frames:
+
+			0x015fbfff	|-------------------|
+						| _________________	|
+						| |		Stack	  |	|
+						| |				  |	|
+			0x015fb000	| |				  |	|
+						|         .			|
+						|		  .			|
+						|		  .			|
+				esp --> | |_______________|	|
+						|					|
+						|					|
+			0x015fa034	|  _______________	| 
+						| |	52 bytes fixed|	|
+						| |	thread_info	--|-|--> PD
+						| |_______________|	|
+			0x015fa000	|-------------------|
+			the structure above provides a convenient way for the kernel to identify process since it can use the esp register and erase lower bits to get to thread_info structure.
+		- process list:
+			"A doubly linked list that links together all existing PD's"
+		- runqueue:
+			- Early Linux put all runnable processes in the same list called runqueue.
+			- 2.6 splits the runqueue in many lists of runnable processes, by process priority(an int in 0-139).
+	- Relationships:
+		fields in PD(given a process P):
+			- real_parent: 
+				"Points to the PD that created P, or to process 1 if parent of P no longer exists."
+			- parent:
+				"Points to the current parent of P. This is the process that must be signaled when P terminates. It maybe different with real_parent when another process issues a ptrace() syscall requesting that it be allowed to monitor P."
+			- children:
+				"The head of list containing all children created by P."
+			- sibling:
+				"Pointers to the next and prev elements in the list of the sibling processes."
+	- Process Resource Limits:
+		"Specify the amount of system resources it can use." Stored in a field called rlimit in the PD.
+	- Process Switch:
+		
