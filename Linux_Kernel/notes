@@ -36,3 +36,36 @@
 		- root/superuser:
 			"Any Unix-like" OS has a special user called root or superuser. The root user can access every file on the system and can manipulate every running user program. 
 
+* Process:
+	"An instance of a program in execution. Processes are often called tasks or threads in the Linux source code. It can be imagined as the collection of data structures that fully describes how far the execution of the program has progressed."
+	- Thread: 
+		"Represents an execution flow of the process, they are independent, but share a large portion of the application data structures."
+	- Linux uses lightweight processes to offer better support for multithreaded applications. Two lightweight processes may share some resources.
+	- Multithreaded Application:
+		A straightforward way to implement multithreaded applications is to associate a lightweight process with each thread. ---> the threads can access the same set of application data structures ++++++ each thread can be scheduled independently by the kernel so that one may sleep while another remains runnable.
+	- Process Descriptor(PD for short):
+		"A task_structure type structure with fields containing all the info related to a single process."
+		including the following - fields.
+		- state:
+			an array; flags mutually exclusive
+		- thread_info
+		- mm
+		- tty
+		- parent
+		- real_parent
+		- fs
+		- thread
+		- files
+		- pid
+		...
+	- To identify a process:
+		1. PID:
+			numbered sequentially; stored in the process descriptor; when upper limit is reached(32767 by default), the lower unused PIDs will be recycled; distinguishable for process(including lightweight); threads in the same group have common PID ==> thread group
+		2. By distinct Process Descriptor:
+			even lightweight processes have their own PD; each process has a 32-bit PD pointer which points to its task_struct(which is PD).
+	- Thread group:
+		- threads with a common PID.
+		- a thread group leader(first lightweight process in the group) has its PID = tgid 
+		- tgid: a field in PD, returned when getpid() is called, thus make sure all threads be led are seemed to share a single PID which is the leader's.
+	- Memory Storage:
+		- PD's are stored in dynamic memory rather than in the memory area permanently assigned to the kernel.
