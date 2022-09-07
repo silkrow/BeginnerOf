@@ -110,4 +110,50 @@
 	- Process Resource Limits:
 		"Specify the amount of system resources it can use." Stored in a field called rlimit in the PD.
 	- Process Switch:
-		
+		1. hardware context: 
+			- Things in registers must be stored/pre-loaded during the switch, the set of data that must be loaded into the registers before process resumes is called "hardware context". In Linux, a part of the hardware context is stored in the PD, while the remaining is saved in the Kernel Mode stack.
+			- Old versions use hardware support to do hardware context switch... Linux 2.6 uses software to perform a process switch... The 2 ways take about the same amount of time.
+			- Don't worry about registers for User Mode, they are stored already in Kernel Mode stack before performing the process switch.
+		2. Task State Segment(TSS):
+			- 80x86 architecture includes a specific segment type called the Task State Segment(TSS), to store hardware contexts.
+			- Linux doesnt's use hardware to perform the hardware context switch, but it forces each CPU to have a TSS.
+			- Check ULK3 p104 for details about Task State Segment.
+		3. Steps of process switch:
+			1) Switch the Page Global Directory to install a new address space
+			2) Switch the Kernel Mode stack and the hardware context
+	- Create Processes:
+		Modern speed ups:
+			- COW
+			- lightweight process: 
+				allow both the parent and the child to share many per-process kernel data structures.
+			- vfork() syscall:
+				creates a process that shares the memory address space of its parent, the parent's execution is blocked until the child exits or executes a new program.	
+		syscalls:
+			- clone():
+				- Creates a lightweight process.
+				- It actually sets up the stack of the new lightweight process and then invokes the clone() system call. So clone() called by application is but a wrapper function in C library.
+			- fork():
+				- a clone() syscall whose flags parameter specifies both a SIGCHLD signal and all the clone flags cleared, and whose child_stack parameter is the current parent stack pointer.
+				- the parent and child temporarily share the same User Mode stack.
+			- vfork():
+				- a clone syscall whose flags parameter specifies both a SIGCHLD signal and the flags CLONE_VM and CLONE_VFORK, and whose child_stack parameter is the current parent stack pointer.
+			---
+			wrap up:
+			clone() ___ a function with many paras and flags 
+				\___ in fact a wrapper function in C lib, sets up the stack of the new lightweight handle some paras and triggers clone() syscall. 
+			fork() ___ clone() syscall with SIGCHLD signal and no flags
+			vfork() ___ clone() syscall with SIGCHLD signal and flag CLONE_VM | CLONE_VFORK
+												\___ Let User Mode sp to be assigned to the esp of the child process(parent and child temporarily share the same User Mode stack)
+		- visualize:
+			|-----------------------|
+			| clone() in C library	|
+			|-----------------------|-----------|-----------------------------------|
+			|		clone()			| + SIGCHLD	| + SIGCHLD + CLONE_VM|CLONE|VFORK  |
+			|						| = fork()	| = vfork()							|
+			|-----------------------|-----------|-----------------------------------|
+							|								|
+			 				|			do_fork()			|
+							|-------------------------------|
+							|			copy_process()		|
+							|-------------------------------|
+							
