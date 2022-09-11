@@ -200,10 +200,13 @@ NOT_MIN:
 			RET
 
 * multiply and divide
-		MULL	%EBX		# unsigned
-							# EDX: EAX <- EAX*EDX
+		MULL	%EBX		# unsigned EDX:EAX <- EAX*EBX
 		IMULL	%EBX		# signed
-		IMULL	%ECX, %EBX	# signed EBX <- EBX*ECX
--------------------------------- figure this out!
 
+		# multiple-operand forms only for signed operations
+		IMULL	%ECX, %EBX	# signed EBX <- EBX*ECX (high bits discarded)
+		IMULL	$20, %EDX, %ECX	# signed ECX <- 20 * EDX (high bits discarded)
+		DIV		%EBX		# unsigned EAX <- EAX/EBX
+							# EDX <- remainder
+		IDIV	%EBX		# signed
 
