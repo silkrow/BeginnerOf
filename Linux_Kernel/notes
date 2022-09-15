@@ -236,7 +236,6 @@
 			- Often called "software interrupts". 
 	Identify:
 		Intel use 8-bit unsigned number called "vector" to identify a interrupt or exception.
-
 	IRQ & Interrupts:
 		"Each hardware device controller capable of issuing interrupt requests usually has a single output line designated as the Interrupt ReQuest (IRQ) line."	
 		- All existing IRQ lines are connected to the input pins of a hardware circuit called the Programmable Interrupt Controller.
@@ -264,5 +263,41 @@
 											wait until CPU acknowledges the interrupt 
 											|					|
 											--------------------|
-
-
+		- Each IRQ lines can be selectively disabled by the vector associated with it. 
+		===> PIC can disable IRQs.
+			Disabled interrupts are not lost, the PIC sends them to the CPU as soon as they are enabled again.
+		- IRQs disabling vs. masking interrupts:
+			- Recall that IRQs sent by I/O devices are ALL maskable. 
+			- IF flag of the eflags register decides whether CPU can receive maskable interrupts issued by PIC.
+			- The cli and sti assembly language instructions are used to clear and set this IF flag.
+		- visualize of IRQ and maskable interrupts:
+			 ___________
+			/  _____	\
+			| /		\	|
+			| |IRQ--|---|-----can be disabled selectively.
+			| \_____/	|
+			|			|
+			|maskable	|
+			|interrupts-|-----cli and sti to set IF in eflag to diable all.
+			\___________/
+	- APIC (Advanced Programmable Interrupt Controller):
+		- Used for multi-processor systems.
+		- Visualize:
+				CPU0
+			 ___________		|				|		external
+			|	_____	|		|				|		IRQs
+			|  |local|	|		|				|		   ||
+			|  |APIC |	| <---> | 				|		   ||	
+			|  |_____|  |		| Interrupt		|		 __\/___
+			|___________|		|				|		|		|
+								| Controller	|		| I/O	|
+								|				| <---> | APIC	|
+				CPU1			| Communication	|		|_______|
+			 ___________		|				|
+			|	_____	|		| bus			|
+			|  |local|	|		|				|
+			|  |APIC |	| <--->	|				|
+			|  |_____|  |		|				|		
+			|___________|		|				|
+								|				|
+							
