@@ -300,4 +300,29 @@
 			|  |_____|  |		|				|		
 			|___________|		|				|
 								|				|
-							
+	- Exceptions:
+		- Check ULK3 p138 for 20 different exceptions that each has one dedicated exception handler given by the kernel. 
+		- A copy of the table: Signals sent by the exception handlers
+		Vector	| Exception						| Exception hander				| Signal
+		----------------------------------------------------------------------------------
+		0		| Divide error					| divide_error()				| SIGFPE
+		1		| Debug							| debug()						| SIGTRAP
+		2		| NMI							| nmi()							| None
+		3		| Breakpoint					| int3()						| SIGTRAP
+		4		| Overflow						| overflow()					| SIGSEGV
+		5		| Bounds check					| bounds()						| SIGSEGV
+		6		| Invalid opcode				| invalid_op()					| SIGILL
+		7		| Device not available			| device_not_available()		| None
+		8		| Double fault					| doublefault_fn()				| None
+		9		| Coprocessor segment overrun	| coprocessor_segment_overrun()	| SIGFPE
+		10		| Invalid TSS					| invalid_TSS()					| SIGSEGV
+		11		| Segment not present			| segment_not_present()			| SIGBUS
+		12		| Stack segment fault			| stack_segment()				| SIGBUS
+		13		| General protection			| general_protection()			| SIGSEGV
+		14		| Page Fault					| page_fault()					| SIGSEGV
+		15		| Intel-reserved				| None							| None
+		16		| Floating-pointer error		| coprocessor_error()			| SIGFPE
+		17		| Alignment check				| alignment_check()				| SIGBUS
+		18		| Machine check					| machine_check()				| None
+		19		| SMD floating point			| simd_coprocessor_error()		| SIGFPE
+		
