@@ -302,6 +302,7 @@
 								|				|
 	- Exceptions:
 		- Check ULK3 p138 for 20 different exceptions that each has one dedicated exception handler given by the kernel. 
+		- Values from 20 to 31 are reserved by Intel for future development.
 		- A copy of the table: Signals sent by the exception handlers
 		Vector	| Exception						| Exception hander				| Signal
 		----------------------------------------------------------------------------------
@@ -325,4 +326,5 @@
 		17		| Alignment check				| alignment_check()				| SIGBUS
 		18		| Machine check					| machine_check()				| None
 		19		| SMD floating point			| simd_coprocessor_error()		| SIGFPE
+	- Interrupt Descriptor Table(IDT):
 		
